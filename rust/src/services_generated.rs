@@ -128,11 +128,17 @@ pub struct FortniteApi {
 }
 
 impl FortniteApi {
-    pub async fn ecosystem_metric(&self, params: FortniteEcosystemMetricParams) -> Result<ApiResponse, Error> {
+    pub async fn ecosystem_metric(
+        &self,
+        params: FortniteEcosystemMetricParams,
+    ) -> Result<ApiResponse, Error> {
         self.inner.call("fortnite-ecosystem-metric", &params, RequestOptions::default()).await
     }
 
-    pub async fn ecosystem_metrics(&self, params: FortniteEcosystemMetricsParams) -> Result<ApiResponse, Error> {
+    pub async fn ecosystem_metrics(
+        &self,
+        params: FortniteEcosystemMetricsParams,
+    ) -> Result<ApiResponse, Error> {
         self.inner.call("fortnite-ecosystem-metrics", &params, RequestOptions::default()).await
     }
 
@@ -140,7 +146,10 @@ impl FortniteApi {
         self.inner.call("fortnite-enums", &params, RequestOptions::default()).await
     }
 
-    pub async fn genre_rankings(&self, params: FortniteGenreRankingsParams) -> Result<ApiResponse, Error> {
+    pub async fn genre_rankings(
+        &self,
+        params: FortniteGenreRankingsParams,
+    ) -> Result<ApiResponse, Error> {
         self.inner.call("fortnite-genre-rankings", &params, RequestOptions::default()).await
     }
 
@@ -152,15 +161,24 @@ impl FortniteApi {
         self.inner.call("fortnite-island", &params, RequestOptions::default()).await
     }
 
-    pub async fn island_metric(&self, params: FortniteIslandMetricParams) -> Result<ApiResponse, Error> {
+    pub async fn island_metric(
+        &self,
+        params: FortniteIslandMetricParams,
+    ) -> Result<ApiResponse, Error> {
         self.inner.call("fortnite-island-metric", &params, RequestOptions::default()).await
     }
 
-    pub async fn island_metrics(&self, params: FortniteIslandMetricsParams) -> Result<ApiResponse, Error> {
+    pub async fn island_metrics(
+        &self,
+        params: FortniteIslandMetricsParams,
+    ) -> Result<ApiResponse, Error> {
         self.inner.call("fortnite-island-metrics", &params, RequestOptions::default()).await
     }
 
-    pub async fn island_rankings(&self, params: FortniteIslandRankingsParams) -> Result<ApiResponse, Error> {
+    pub async fn island_rankings(
+        &self,
+        params: FortniteIslandRankingsParams,
+    ) -> Result<ApiResponse, Error> {
         self.inner.call("fortnite-island-rankings", &params, RequestOptions::default()).await
     }
 

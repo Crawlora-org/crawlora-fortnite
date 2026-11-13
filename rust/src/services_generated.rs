@@ -13,7 +13,9 @@ pub struct Services {
 impl Services {
     pub(crate) fn new(inner: Arc<ClientInner>) -> Self {
         Self {
-            fortnite: FortniteApi { inner: Arc::clone(&inner) },
+            fortnite: FortniteApi {
+                inner: Arc::clone(&inner),
+            },
         }
     }
 }
@@ -132,58 +134,97 @@ impl FortniteApi {
         &self,
         params: FortniteEcosystemMetricParams,
     ) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-ecosystem-metric", &params, RequestOptions::default()).await
+        self.inner
+            .call(
+                "fortnite-ecosystem-metric",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
     }
 
     pub async fn ecosystem_metrics(
         &self,
         params: FortniteEcosystemMetricsParams,
     ) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-ecosystem-metrics", &params, RequestOptions::default()).await
+        self.inner
+            .call(
+                "fortnite-ecosystem-metrics",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
     }
 
     pub async fn enums(&self, params: FortniteEnumsParams) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-enums", &params, RequestOptions::default()).await
+        self.inner
+            .call("fortnite-enums", &params, RequestOptions::default())
+            .await
     }
 
     pub async fn genre_rankings(
         &self,
         params: FortniteGenreRankingsParams,
     ) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-genre-rankings", &params, RequestOptions::default()).await
+        self.inner
+            .call(
+                "fortnite-genre-rankings",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
     }
 
     pub async fn genres(&self, params: FortniteGenresParams) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-genres", &params, RequestOptions::default()).await
+        self.inner
+            .call("fortnite-genres", &params, RequestOptions::default())
+            .await
     }
 
     pub async fn island(&self, params: FortniteIslandParams) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-island", &params, RequestOptions::default()).await
+        self.inner
+            .call("fortnite-island", &params, RequestOptions::default())
+            .await
     }
 
     pub async fn island_metric(
         &self,
         params: FortniteIslandMetricParams,
     ) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-island-metric", &params, RequestOptions::default()).await
+        self.inner
+            .call("fortnite-island-metric", &params, RequestOptions::default())
+            .await
     }
 
     pub async fn island_metrics(
         &self,
         params: FortniteIslandMetricsParams,
     ) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-island-metrics", &params, RequestOptions::default()).await
+        self.inner
+            .call(
+                "fortnite-island-metrics",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
     }
 
     pub async fn island_rankings(
         &self,
         params: FortniteIslandRankingsParams,
     ) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-island-rankings", &params, RequestOptions::default()).await
+        self.inner
+            .call(
+                "fortnite-island-rankings",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
     }
 
     pub async fn islands(&self, params: FortniteIslandsParams) -> Result<ApiResponse, Error> {
-        self.inner.call("fortnite-islands", &params, RequestOptions::default()).await
+        self.inner
+            .call("fortnite-islands", &params, RequestOptions::default())
+            .await
     }
-
 }

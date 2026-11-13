@@ -17,15 +17,31 @@ pub struct ModelAppResponse {
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelFortniteEnumsResponse {
-    #[serde(rename = "ecosystem_metric_paths", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "ecosystem_metric_paths",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub ecosystem_metric_paths: Option<Vec<String>>,
-    #[serde(rename = "ecosystem_metrics", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "ecosystem_metrics",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub ecosystem_metrics: Option<Vec<String>>,
     #[serde(rename = "intervals", default, skip_serializing_if = "Option::is_none")]
     pub intervals: Option<Vec<String>>,
-    #[serde(rename = "island_metric_paths", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "island_metric_paths",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub island_metric_paths: Option<Vec<String>>,
-    #[serde(rename = "island_metrics", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "island_metrics",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub island_metrics: Option<Vec<String>>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
@@ -35,7 +51,11 @@ pub struct ModelFortniteEnumsResponse {
 pub struct ModelFortniteResponse {
     #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
     pub data: Option<std::collections::BTreeMap<String, serde_json::Value>>,
-    #[serde(rename = "source_url", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "source_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub source_url: Option<String>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,

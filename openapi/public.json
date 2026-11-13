@@ -1,0 +1,922 @@
+{
+  "basePath": "/api/v1",
+  "definitions": {
+    "app.Response": {
+      "description": "The Response struct is used for wrapping the API response with a code, message, and data.",
+      "properties": {
+        "code": {
+          "description": "Code is the HTTP status code or a custom code used to indicate the result of the request\n@example 200",
+          "type": "integer"
+        },
+        "data": {
+          "description": "Data is the response data (can be any object or null)\n@example {\"id\": 1, \"name\": \"John Doe\"}"
+        },
+        "msg": {
+          "description": "Msg is the message that describes the result of the request\n@example \"Request successful\""
+        }
+      },
+      "type": "object"
+    },
+    "fortnite.EnumsResponse": {
+      "properties": {
+        "ecosystem_metric_paths": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ecosystem_metrics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "intervals": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "island_metric_paths": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "island_metrics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "fortnite.Response": {
+      "properties": {
+        "data": {
+          "additionalProperties": {},
+          "type": "object"
+        },
+        "source_url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "api.crawlora.net",
+  "info": {
+    "contact": {
+      "email": "support@crawlora.net",
+      "name": "API Support",
+      "url": "https://crawlora.net"
+    },
+    "description": "Crawlora is a hosted web-data and SERP API: call documented REST endpoints and get normalized JSON instead of HTML to parse — across search/SERP, maps and local, e-commerce, app stores, social, media and finance. One API key; Crawlora runs the proxy rotation, headless browsers and parsing behind the scenes. Billed pay-on-success: charged only on a successful 2xx response, 1-10 credits per call, with a free tier of 2,000 credits per month and no card. A hosted MCP server (mcp.crawlora.net/mcp) exposes the same catalog as agent tools. Search endpoints accept `q` as a universal alias for whichever search-term parameter they document (`query`, `term`, `keyword`, or Amazon's `k`), so one parameter name works across the whole catalog; an explicitly supplied documented name always wins.",
+    "license": {
+      "name": "Crawlora Terms of Service",
+      "url": "https://crawlora.net/terms"
+    },
+    "termsOfService": "https://crawlora.net/terms",
+    "title": "Crawlora API",
+    "version": "1.2",
+    "x-logo": {
+      "altText": "Crawlora",
+      "backgroundColor": "#FFFFFF",
+      "url": "https://raw.githubusercontent.com/Crawlora-org/crawlora-mcp/main/assets/logo-400x400.png"
+    }
+  },
+  "paths": {
+    "/fortnite/ecosystem-metric": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a native aggregate peak concurrent-user resource. Intervals are `day`, `hour`, and `minute`; minute buckets are ten minutes.",
+        "operationId": "fortnite-ecosystem-metric",
+        "parameters": [
+          {
+            "description": "Bucket size",
+            "enum": [
+              "day",
+              "hour",
+              "minute"
+            ],
+            "in": "query",
+            "name": "interval",
+            "required": true,
+            "type": "string",
+            "x-example": "day"
+          },
+          {
+            "description": "Native metric path variant",
+            "enum": [
+              "in-client-peak-ccu",
+              "in-match-peak-ccu"
+            ],
+            "in": "query",
+            "name": "metric",
+            "required": true,
+            "type": "string",
+            "x-example": "in-client-peak-ccu"
+          },
+          {
+            "description": "Inclusive ISO-8601 start time, within seven days",
+            "in": "query",
+            "name": "from",
+            "type": "string"
+          },
+          {
+            "description": "Exclusive ISO-8601 end time",
+            "in": "query",
+            "name": "to",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get one Fortnite ecosystem metric",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/ecosystem-metrics": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns native aggregate Fortnite client or in-match peak concurrent-user metrics. Intervals are `day`, `hour`, and `minute`; minute buckets are ten minutes. The source retains seven days.",
+        "operationId": "fortnite-ecosystem-metrics",
+        "parameters": [
+          {
+            "description": "Bucket size",
+            "enum": [
+              "day",
+              "hour",
+              "minute"
+            ],
+            "in": "query",
+            "name": "interval",
+            "required": true,
+            "type": "string",
+            "x-example": "day"
+          },
+          {
+            "collectionFormat": "csv",
+            "description": "Optional repeatable metric filter",
+            "in": "query",
+            "items": {
+              "enum": [
+                "inMatchPeakCCU",
+                "inClientPeakCCU"
+              ],
+              "type": "string"
+            },
+            "name": "metrics",
+            "type": "array"
+          },
+          {
+            "description": "Inclusive ISO-8601 start time, within seven days",
+            "in": "query",
+            "name": "from",
+            "type": "string"
+          },
+          {
+            "description": "Exclusive ISO-8601 end time",
+            "in": "query",
+            "name": "to",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Fortnite ecosystem metrics",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/enums": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the complete interval and metric value sets declared by Epic's current OpenAPI schema. Use fortnite_genres for the dynamic genre catalog.",
+        "operationId": "fortnite-enums",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.EnumsResponse"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Fortnite metric enums",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/genre-rankings": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns one upstream genre ranking page. The slug comes from fortnite_genres. Pagination uses the source cursors; `at` selects an hourly snapshot and is limited by the source's seven-day retention.",
+        "operationId": "fortnite-genre-rankings",
+        "parameters": [
+          {
+            "description": "Genre slug from fortnite_genres",
+            "in": "query",
+            "name": "slug",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Hourly point-in-time snapshot, at most seven days old",
+            "in": "query",
+            "name": "at",
+            "type": "string"
+          },
+          {
+            "description": "Return results after this upstream cursor",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          },
+          {
+            "description": "Return results before this upstream cursor",
+            "in": "query",
+            "name": "before",
+            "type": "string"
+          },
+          {
+            "description": "Upstream page size, 1 through 1000",
+            "in": "query",
+            "name": "size",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get rankings for a Fortnite genre",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/genres": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the full live upstream genre list used by genre ranking operations.",
+        "operationId": "fortnite-genres",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Fortnite genres",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/island": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns public metadata for one Epic island code or first-party display name. The creator code is omitted.",
+        "operationId": "fortnite-island",
+        "parameters": [
+          {
+            "description": "Island code or first-party display name",
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a Fortnite island",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/island-metric": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a single native metric resource. Intervals are `day`, `hour`, and `minute`; minute buckets are ten minutes. `retention` is daily only and `average-minutes-per-player` supports day or hour. The source may return null for intervals with fewer than five unique players.",
+        "operationId": "fortnite-island-metric",
+        "parameters": [
+          {
+            "description": "Island code or first-party display name",
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Bucket size",
+            "enum": [
+              "day",
+              "hour",
+              "minute"
+            ],
+            "in": "query",
+            "name": "interval",
+            "required": true,
+            "type": "string",
+            "x-example": "day"
+          },
+          {
+            "description": "Native metric path variant",
+            "enum": [
+              "peak-ccu",
+              "favorites",
+              "minutes-played",
+              "average-minutes-per-player",
+              "recommendations",
+              "unique-players",
+              "plays",
+              "retention"
+            ],
+            "in": "query",
+            "name": "metric",
+            "required": true,
+            "type": "string",
+            "x-example": "peak-ccu"
+          },
+          {
+            "description": "Inclusive ISO-8601 start time, within seven days",
+            "in": "query",
+            "name": "from",
+            "type": "string"
+          },
+          {
+            "description": "Exclusive ISO-8601 end time",
+            "in": "query",
+            "name": "to",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get one Fortnite island metric",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/island-metrics": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Mirrors Epic's daily-range or interval-bucket island metrics. Intervals are `day`, `hour`, and `minute`; minute buckets are ten minutes. Retention is daily only, average minutes per player is unavailable for minute buckets, and low-traffic intervals may contain null values. The upstream history window is seven days.",
+        "operationId": "fortnite-island-metrics",
+        "parameters": [
+          {
+            "description": "Island code or first-party display name",
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Optional bucket size",
+            "enum": [
+              "day",
+              "hour",
+              "minute"
+            ],
+            "in": "query",
+            "name": "interval",
+            "type": "string"
+          },
+          {
+            "collectionFormat": "csv",
+            "description": "Optional repeatable metric filter",
+            "in": "query",
+            "items": {
+              "enum": [
+                "averageMinutesPerPlayer",
+                "peakCCU",
+                "favorites",
+                "minutesPlayed",
+                "recommendations",
+                "plays",
+                "uniquePlayers",
+                "retention"
+              ],
+              "type": "string"
+            },
+            "name": "metrics",
+            "type": "array"
+          },
+          {
+            "description": "Inclusive ISO-8601 start time, within seven days",
+            "in": "query",
+            "name": "from",
+            "type": "string"
+          },
+          {
+            "description": "Exclusive ISO-8601 end time",
+            "in": "query",
+            "name": "to",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Fortnite island metrics",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/island-rankings": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns hourly ranking snapshots for one island, using the source's native `from` and `to` time range. Results are retained for seven days.",
+        "operationId": "fortnite-island-rankings",
+        "parameters": [
+          {
+            "description": "Island code or first-party display name",
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Inclusive ISO-8601 start time, within seven days",
+            "in": "query",
+            "name": "from",
+            "type": "string"
+          },
+          {
+            "description": "Exclusive ISO-8601 end time",
+            "in": "query",
+            "name": "to",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Fortnite island rankings",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    },
+    "/fortnite/islands": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the public island catalog from Epic's native cursor-paginated endpoint. Island tags are free-form creator-supplied strings rather than a closed enum; use fortnite_genres for the complete genre vocabulary. Source creator codes are omitted.",
+        "operationId": "fortnite-islands",
+        "parameters": [
+          {
+            "description": "Return islands after this upstream cursor",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          },
+          {
+            "description": "Return islands before this upstream cursor",
+            "in": "query",
+            "name": "before",
+            "type": "string"
+          },
+          {
+            "description": "Upstream page size, 1 through 1000",
+            "in": "query",
+            "name": "size",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/fortnite.Response"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Discover Fortnite islands",
+        "tags": [
+          "fortnite"
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "swagger": "2.0",
+  "tags": [
+    {
+      "name": "fortnite"
+    }
+  ]
+}

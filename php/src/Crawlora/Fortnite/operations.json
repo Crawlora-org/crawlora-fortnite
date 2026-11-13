@@ -1,0 +1,667 @@
+{
+  "platform": "fortnite",
+  "operationCount": 10,
+  "operationIds": [
+    "fortnite-ecosystem-metric",
+    "fortnite-ecosystem-metrics",
+    "fortnite-enums",
+    "fortnite-genre-rankings",
+    "fortnite-genres",
+    "fortnite-island",
+    "fortnite-island-metric",
+    "fortnite-island-metrics",
+    "fortnite-island-rankings",
+    "fortnite-islands"
+  ],
+  "methods": {
+    "ecosystem_metric": "fortnite-ecosystem-metric",
+    "ecosystem_metrics": "fortnite-ecosystem-metrics",
+    "enums": "fortnite-enums",
+    "genre_rankings": "fortnite-genre-rankings",
+    "genres": "fortnite-genres",
+    "island": "fortnite-island",
+    "island_metric": "fortnite-island-metric",
+    "island_metrics": "fortnite-island-metrics",
+    "island_rankings": "fortnite-island-rankings",
+    "islands": "fortnite-islands"
+  },
+  "operations": {
+    "fortnite-ecosystem-metric": {
+      "id": "fortnite-ecosystem-metric",
+      "method": "GET",
+      "path": "/fortnite/ecosystem-metric",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "interval",
+          "in": "query",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ]
+        },
+        {
+          "name": "metric",
+          "in": "query",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "in-client-peak-ccu",
+            "in-match-peak-ccu"
+          ]
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Bucket size",
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ],
+          "in": "query",
+          "name": "interval",
+          "required": true,
+          "type": "string",
+          "x-example": "day"
+        },
+        {
+          "description": "Native metric path variant",
+          "enum": [
+            "in-client-peak-ccu",
+            "in-match-peak-ccu"
+          ],
+          "in": "query",
+          "name": "metric",
+          "required": true,
+          "type": "string",
+          "x-example": "in-client-peak-ccu"
+        },
+        {
+          "description": "Inclusive ISO-8601 start time, within seven days",
+          "in": "query",
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "description": "Exclusive ISO-8601 end time",
+          "in": "query",
+          "name": "to",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-ecosystem-metrics": {
+      "id": "fortnite-ecosystem-metrics",
+      "method": "GET",
+      "path": "/fortnite/ecosystem-metrics",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "interval",
+          "in": "query",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ]
+        },
+        {
+          "name": "metrics",
+          "in": "query",
+          "collectionFormat": "csv",
+          "type": "array",
+          "enum": [
+            "inMatchPeakCCU",
+            "inClientPeakCCU"
+          ]
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Bucket size",
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ],
+          "in": "query",
+          "name": "interval",
+          "required": true,
+          "type": "string",
+          "x-example": "day"
+        },
+        {
+          "collectionFormat": "csv",
+          "description": "Optional repeatable metric filter",
+          "in": "query",
+          "items": {
+            "enum": [
+              "inMatchPeakCCU",
+              "inClientPeakCCU"
+            ],
+            "type": "string"
+          },
+          "name": "metrics",
+          "type": "array"
+        },
+        {
+          "description": "Inclusive ISO-8601 start time, within seven days",
+          "in": "query",
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "description": "Exclusive ISO-8601 end time",
+          "in": "query",
+          "name": "to",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-enums": {
+      "id": "fortnite-enums",
+      "method": "GET",
+      "path": "/fortnite/enums",
+      "pathParams": [],
+      "queryParams": [],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-genre-rankings": {
+      "id": "fortnite-genre-rankings",
+      "method": "GET",
+      "path": "/fortnite/genre-rankings",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "slug",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "at",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "before",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "type": "integer"
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Genre slug from fortnite_genres",
+          "in": "query",
+          "name": "slug",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "description": "Hourly point-in-time snapshot, at most seven days old",
+          "in": "query",
+          "name": "at",
+          "type": "string"
+        },
+        {
+          "description": "Return results after this upstream cursor",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        },
+        {
+          "description": "Return results before this upstream cursor",
+          "in": "query",
+          "name": "before",
+          "type": "string"
+        },
+        {
+          "description": "Upstream page size, 1 through 1000",
+          "in": "query",
+          "name": "size",
+          "type": "integer"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-genres": {
+      "id": "fortnite-genres",
+      "method": "GET",
+      "path": "/fortnite/genres",
+      "pathParams": [],
+      "queryParams": [],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-island": {
+      "id": "fortnite-island",
+      "method": "GET",
+      "path": "/fortnite/island",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "code",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Island code or first-party display name",
+          "in": "query",
+          "name": "code",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-island-metric": {
+      "id": "fortnite-island-metric",
+      "method": "GET",
+      "path": "/fortnite/island-metric",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "code",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "interval",
+          "in": "query",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ]
+        },
+        {
+          "name": "metric",
+          "in": "query",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "peak-ccu",
+            "favorites",
+            "minutes-played",
+            "average-minutes-per-player",
+            "recommendations",
+            "unique-players",
+            "plays",
+            "retention"
+          ]
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Island code or first-party display name",
+          "in": "query",
+          "name": "code",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "description": "Bucket size",
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ],
+          "in": "query",
+          "name": "interval",
+          "required": true,
+          "type": "string",
+          "x-example": "day"
+        },
+        {
+          "description": "Native metric path variant",
+          "enum": [
+            "peak-ccu",
+            "favorites",
+            "minutes-played",
+            "average-minutes-per-player",
+            "recommendations",
+            "unique-players",
+            "plays",
+            "retention"
+          ],
+          "in": "query",
+          "name": "metric",
+          "required": true,
+          "type": "string",
+          "x-example": "peak-ccu"
+        },
+        {
+          "description": "Inclusive ISO-8601 start time, within seven days",
+          "in": "query",
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "description": "Exclusive ISO-8601 end time",
+          "in": "query",
+          "name": "to",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-island-metrics": {
+      "id": "fortnite-island-metrics",
+      "method": "GET",
+      "path": "/fortnite/island-metrics",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "code",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "interval",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ]
+        },
+        {
+          "name": "metrics",
+          "in": "query",
+          "collectionFormat": "csv",
+          "type": "array",
+          "enum": [
+            "averageMinutesPerPlayer",
+            "peakCCU",
+            "favorites",
+            "minutesPlayed",
+            "recommendations",
+            "plays",
+            "uniquePlayers",
+            "retention"
+          ]
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Island code or first-party display name",
+          "in": "query",
+          "name": "code",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "description": "Optional bucket size",
+          "enum": [
+            "day",
+            "hour",
+            "minute"
+          ],
+          "in": "query",
+          "name": "interval",
+          "type": "string"
+        },
+        {
+          "collectionFormat": "csv",
+          "description": "Optional repeatable metric filter",
+          "in": "query",
+          "items": {
+            "enum": [
+              "averageMinutesPerPlayer",
+              "peakCCU",
+              "favorites",
+              "minutesPlayed",
+              "recommendations",
+              "plays",
+              "uniquePlayers",
+              "retention"
+            ],
+            "type": "string"
+          },
+          "name": "metrics",
+          "type": "array"
+        },
+        {
+          "description": "Inclusive ISO-8601 start time, within seven days",
+          "in": "query",
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "description": "Exclusive ISO-8601 end time",
+          "in": "query",
+          "name": "to",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-island-rankings": {
+      "id": "fortnite-island-rankings",
+      "method": "GET",
+      "path": "/fortnite/island-rankings",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "code",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Island code or first-party display name",
+          "in": "query",
+          "name": "code",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "description": "Inclusive ISO-8601 start time, within seven days",
+          "in": "query",
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "description": "Exclusive ISO-8601 end time",
+          "in": "query",
+          "name": "to",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "fortnite-islands": {
+      "id": "fortnite-islands",
+      "method": "GET",
+      "path": "/fortnite/islands",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "before",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "type": "integer"
+        }
+      ],
+      "bodyParam": null,
+      "bodyRequired": false,
+      "params": [
+        {
+          "description": "Return islands after this upstream cursor",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        },
+        {
+          "description": "Return islands before this upstream cursor",
+          "in": "query",
+          "name": "before",
+          "type": "string"
+        },
+        {
+          "description": "Upstream page size, 1 through 1000",
+          "in": "query",
+          "name": "size",
+          "type": "integer"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    }
+  }
+}

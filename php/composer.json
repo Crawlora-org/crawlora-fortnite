@@ -1,0 +1,44 @@
+{
+  "name": "crawlora/fortnite",
+  "description": "Crawlora Fortnite API client with 10 endpoints for public island discovery, genres, rankings, and engagement metrics",
+  "keywords": [
+    "crawlora",
+    "api-client",
+    "sdk",
+    "web-scraping",
+    "scraping-api",
+    "fortnite",
+    "fortnite-api",
+    "fortnite-scraper",
+    "fortnite-data",
+    "fortnite-public-island-discovery",
+    "fortnite-genres",
+    "fortnite-rankings",
+    "fortnite-engagement-metrics"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Crawlora\\Fortnite\\": "src/Crawlora/Fortnite/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Crawlora\\Fortnite\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "php tests/client_test.php"
+  },
+  "homepage": "https://crawlora.net/?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=fortnite-php-homepage",
+  "support": {
+    "source": "https://github.com/Crawlora-org/crawlora-fortnite",
+    "docs": "https://crawlora.net/docs?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=fortnite-php-api-docs"
+  }
+}
